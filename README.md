@@ -6,7 +6,7 @@
 <p align="center">Route Kuest services through your own Cloudflare domain.</p>
 
 <p align="center">
-  <a href="https://deploy.workers.cloudflare.com/?url=https://github.com/kuestcom/custom-domain">
+  <a href="https://deploy.workers.cloudflare.com/?url=https://github.com/kuest/custom-domain">
     <img src="https://deploy.workers.cloudflare.com/button" alt="Deploy to Cloudflare" />
   </a>
 </p>
