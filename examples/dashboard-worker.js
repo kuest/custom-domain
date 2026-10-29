@@ -2,7 +2,6 @@ const SERVICES = {
   relayer: "relayer.kuest.com",
   clob: "clob.kuest.com",
   "data-api": "data-api.kuest.com",
-  "user-pnl-api": "user-pnl-api.kuest.com",
   community: "community.kuest.com",
   "create-market": "create-market.kuest.com",
   "gamma-api": "gamma-api.kuest.com",
