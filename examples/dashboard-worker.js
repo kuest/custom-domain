@@ -10,6 +10,7 @@ const SERVICES = {
   "sdk-download": "sdk-download.kuest.com",
   "ws-live-data": "ws-live-data.kuest.com",
   "ws-subscriptions-clob": "ws-subscriptions-clob.kuest.com",
+  assets: "assets.kuest.com",
 };
 
 export default {

@@ -32,6 +32,34 @@ describe("Kuest custom domain proxy", () => {
     expect(response.status).toBe(404);
   });
 
+  it("proxies asset reads and preserves the upstream cache policy for missing objects", async () => {
+    const fetchSpy = vi.spyOn(globalThis, "fetch")
+      .mockResolvedValueOnce(new Response('{"name":"asset"}', {
+        headers: { "Content-Type": "application/json", ETag: '"asset-tag"' },
+      }))
+      .mockResolvedValueOnce(new Response(null, {
+        status: 404,
+        headers: { "Cache-Control": "no-store" },
+      }));
+    const assetId = "a".repeat(43);
+    const operatorUrl = `https://assets.example.com/${assetId}`;
+    const asset = await worker.fetch(new Request(operatorUrl), env);
+    const missing = await worker.fetch(new Request(operatorUrl, { method: "HEAD" }), env);
+
+    expect(asset.status).toBe(200);
+    expect(asset.headers.get("ETag")).toBe('"asset-tag"');
+    expect(await asset.json()).toEqual({ name: "asset" });
+    expect(missing.status).toBe(404);
+    expect(missing.headers.get("Cache-Control")).toBe("no-store");
+    expect(fetchSpy.mock.calls.map(([request]) => [
+      (request as Request).method,
+      (request as Request).url,
+    ])).toEqual([
+      ["GET", `https://assets.kuest.com/${assetId}`],
+      ["HEAD", `https://assets.kuest.com/${assetId}`],
+    ]);
+  });
+
   it("rewrites upstream redirects to the custom hostname", async () => {
     vi.spyOn(globalThis, "fetch").mockResolvedValue(
       new Response(null, {

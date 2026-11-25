@@ -29,4 +29,8 @@ test("the project config creates all 15 custom domains", async () => {
 
   assert.equal(config.routes.length, 15);
   assert.equal(config.routes[1].pattern, "clob.example.com");
+  assert.equal(services.assets, "assets.kuest.com");
+  assert.ok(config.routes.some(
+    (route) => route.pattern === "assets.example.com" && route.custom_domain,
+  ));
 });

@@ -15,6 +15,8 @@ Enter your domain when Cloudflare asks for `DOMAIN`. The deployment creates the 
 
 Cloudflare creates an independent copy, not a fork. Automatic Kuest updates are available only to GitHub forks with Actions enabled; the sync workflow preserves `DOMAIN`.
 
+The proxy serves assets at `https://assets.<DOMAIN>`. If you already deployed an independent copy, update it to include the latest changes and redeploy the existing Worker with the same `DOMAIN` to add the new hostname.
+
 ## Local development
 
 ```bash
